@@ -1,9 +1,16 @@
 import numpy as np
 
+
 class BBox:
     origin = 1
 
-    def __init__(self, arr, mode="xyxy", origin=1, copy=False):
+    def __init__(
+        self,
+        arr,
+        mode: str = "xyxy",
+        origin: float = 1,
+        copy: bool = False,
+    ):
         """mode = 'xyxy' | 'xywh' | 'ccwh'"""
 
         if mode not in ("xyxy", "xywh", "ccwh"):
