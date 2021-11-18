@@ -10,7 +10,7 @@ class BBox:
         mode: str = "xyxy",
         origin: float = 1,
         copy: bool = False,
-    ):
+    ) -> None:
         """mode = 'xyxy' | 'xywh' | 'ccwh'"""
 
         if mode not in ("xyxy", "xywh", "ccwh"):

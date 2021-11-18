@@ -5,7 +5,7 @@ from bbox.bbox import BBox
 
 
 class TestBBox(TestCase):
-    def test_init(self):
+    def test_init(self) -> None:
         arr = np.random.rand(2, 3, 4)
         bbox = BBox(arr)
         self.assertIsInstance(bbox, BBox)
