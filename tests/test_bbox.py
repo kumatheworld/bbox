@@ -14,6 +14,12 @@ class TestBBox(TestCase):
             bbox = BBox(arr)
             self.assertIsInstance(bbox, BBox)
 
+    def test_init_arr_neg(self) -> None:
+        invalid_arrays = [(5, 6), [[7], [8], [9], [0]], np.random.rand(4, 5)]
+        for arr in invalid_arrays:
+            with self.assertRaises(ValueError):
+                BBox(arr)
+
     def test_init_mode_pos(self) -> None:
         arr = np.random.rand(2, 3, 4)
         valid_modes = ("xyxy", "xywh", "ccwh")
