@@ -13,18 +13,19 @@ class TestBBox(TestCase):
         bbox = BBox(arr)
         self.assertIsInstance(bbox, BBox)
 
-    def test_init_mode(self) -> None:
+    def test_init_mode_pos(self) -> None:
         arr = np.random.rand(2, 3, 4)
-
         valid_modes = ("xyxy", "xywh", "ccwh")
         for mode in valid_modes:
             bbox = BBox(arr, mode=mode)
             self.assertIsInstance(bbox, BBox)
 
+    def test_init_mode_neg(self) -> None:
+        arr = np.random.rand(2, 3, 4)
         invalid_modes = ("xxyy", "xyhw", "cxcywh")
         for mode in invalid_modes:
             with self.assertRaises(ValueError):
-                bbox = BBox(arr, mode=mode)
+                BBox(arr, mode=mode)
 
 
 if __name__ == "__main__":
