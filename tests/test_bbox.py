@@ -46,6 +46,11 @@ class TestBBox(TestCase):
         bbox = BBox(arr, copy=False)
         self.assertIs(arr, bbox._xyxy)
 
+    def test_init_copy_true(self) -> None:
+        arr = np.random.rand(2, 3, 4)
+        bbox = BBox(arr, copy=True)
+        self.assertIsNot(arr, bbox._xyxy)
+
 
 if __name__ == "__main__":
     main()
