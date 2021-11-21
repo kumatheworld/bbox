@@ -34,6 +34,13 @@ class TestBBox(TestCase):
             with self.assertRaises(ValueError):
                 BBox(arr, mode=mode)
 
+    def test_init_origin(self) -> None:
+        arr = np.random.rand(2, 3, 4)
+        origins = (0, 1)
+        for origin in origins:
+            bbox = BBox(arr, origin=origin)
+            self.assertIsInstance(bbox, BBox)
+
 
 if __name__ == "__main__":
     main()
