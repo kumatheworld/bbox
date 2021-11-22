@@ -42,3 +42,18 @@ class BBox:
     def shape(self):
         return self._xyxy.shape[:-1]
 
+    @property
+    def _x0(self) -> np.ndarray:
+        return self._xyxy[..., 0]
+
+    @property
+    def _y0(self) -> np.ndarray:
+        return self._xyxy[..., 1]
+
+    @property
+    def _x1(self) -> np.ndarray:
+        return self._xyxy[..., 2]
+
+    @property
+    def _y1(self) -> np.ndarray:
+        return self._xyxy[..., 3]
