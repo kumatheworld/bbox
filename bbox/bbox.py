@@ -37,3 +37,8 @@ class BBox:
         self._xyxy = arr
         if origin != self.origin:
             self._xyxy += self.origin - origin
+
+    @property
+    def shape(self):
+        return self._xyxy.shape[:-1]
+
