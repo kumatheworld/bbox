@@ -1,7 +1,7 @@
 from unittest import TestCase, main
 
 import numpy as np
-from bbox.bbox import BBox
+from bbox.bbox import BBox, stack
 
 
 class TestBBox(TestCase):
@@ -50,6 +50,12 @@ class TestBBox(TestCase):
         arr = np.random.rand(2, 3, 4)
         bbox = BBox(arr, copy=True)
         self.assertIsNot(arr, bbox._xyxy)
+
+    def test_stack_shape(self) -> None:
+        arr = np.random.rand(2, 3, 4)
+        bboxes = [BBox(a) for a in arr]
+        bbox = stack(bboxes)
+        self.assertEqual(bbox.shape, arr.shape[:-1])
 
 
 if __name__ == "__main__":
