@@ -1,3 +1,5 @@
+from typing import Sequence
+
 import numpy as np
 
 
@@ -57,3 +59,8 @@ class BBox:
     @property
     def _y1(self) -> np.ndarray:
         return self._xyxy[..., 3]
+
+
+def stack(bboxes: Sequence[BBox]) -> BBox:
+    arr = np.stack([bbox._xyxy for bbox in bboxes])
+    return BBox(arr)
