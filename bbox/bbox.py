@@ -61,6 +61,8 @@ class BBox:
         return self._xyxy[..., 3]
 
 
-def stack(bboxes: Sequence[BBox]) -> BBox:
-    arr = np.stack([bbox._xyxy for bbox in bboxes])
+def stack(bboxes: Sequence[BBox], axis=0) -> BBox:
+    if axis < 0:
+        axis -= 1
+    arr = np.stack([bbox._xyxy for bbox in bboxes], axis)
     return BBox(arr)
