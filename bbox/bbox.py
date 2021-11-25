@@ -1,3 +1,4 @@
+from re import sub
 from typing import Sequence
 
 import numpy as np
@@ -66,3 +67,27 @@ def stack(bboxes: Sequence[BBox], axis=0) -> BBox:
         axis -= 1
     arr = np.stack([bbox._xyxy for bbox in bboxes], axis)
     return BBox(arr)
+
+
+def loadtxt(
+    fname,
+    mode="xywh",
+    origin=1,
+    dtype=float,
+    delimiter=",",
+    usecols=None,
+    ndmin=2,
+    start=None,
+    stop=None,
+    step=None,
+):
+    if delimiter:
+        arr = np.loadtxt(
+            fname, dtype, delimiter=delimiter, usecols=usecols, ndmin=ndmin
+        )
+    else:
+        with open(fname) as f:
+            arr_str = [sub(",|\t", " ", line) for line in f]
+        arr = np.loadtxt(arr_str, dtype, usecols=usecols, ndmin=ndmin)
+    arr = arr[start:stop:step]
+    return BBox(arr, mode, origin)
