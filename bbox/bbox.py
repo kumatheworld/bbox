@@ -1,5 +1,5 @@
 from re import sub
-from typing import Sequence
+from typing import Optional, Sequence, Union
 
 import numpy as np
 from numpy.typing import ArrayLike
@@ -72,15 +72,15 @@ def stack(bboxes: Sequence[BBox], axis=0) -> BBox:
 
 def loadtxt(
     fname,
-    mode="xywh",
-    origin=1,
-    dtype=float,
-    delimiter=",",
-    usecols=None,
-    ndmin=2,
-    start=None,
-    stop=None,
-    step=None,
+    mode: str = "xywh",
+    origin: float = 1,
+    dtype: type = float,
+    delimiter: Optional[str] = ",",
+    usecols: Optional[Union[int, Sequence[int]]] = None,
+    ndmin: Optional[int] = 2,
+    start: Optional[int] = None,
+    stop: Optional[int] = None,
+    step: Optional[int] = None,
 ):
     if delimiter:
         arr = np.loadtxt(
