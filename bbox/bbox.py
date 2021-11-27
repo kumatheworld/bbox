@@ -2,6 +2,7 @@ from re import sub
 from typing import Sequence
 
 import numpy as np
+from numpy.typing import ArrayLike
 
 
 class BBox:
@@ -9,7 +10,7 @@ class BBox:
 
     def __init__(
         self,
-        arr,
+        arr: ArrayLike,
         mode: str = "xyxy",
         origin: float = 1,
         copy: bool = False,
