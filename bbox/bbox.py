@@ -1,3 +1,4 @@
+from pathlib import Path
 from re import sub
 from typing import Optional, Sequence, Union
 
@@ -71,7 +72,7 @@ def stack(bboxes: Sequence[BBox], axis=0) -> BBox:
 
 
 def loadtxt(
-    fname,
+    fname: Union[str, Path],
     mode: str = "xywh",
     origin: float = 1,
     dtype: type = float,
