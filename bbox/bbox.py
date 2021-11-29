@@ -63,6 +63,9 @@ class BBox:
     def _y1(self) -> np.ndarray:
         return self._xyxy[..., 3]
 
+    def __repr__(self):
+        return f"BBox({repr(self._xyxy)})"
+
 
 def stack(bboxes: Sequence[BBox], axis=0) -> BBox:
     if axis < 0:
