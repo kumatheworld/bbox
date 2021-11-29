@@ -66,6 +66,9 @@ class BBox:
     def __repr__(self):
         return f"BBox({repr(self._xyxy)})"
 
+    def __str__(self):
+        return f"BBox(x0={self._x0}, y0={self._y0}, " f"x1={self._x1}, y1={self._y1})"
+
 
 def stack(bboxes: Sequence[BBox], axis=0) -> BBox:
     if axis < 0:
