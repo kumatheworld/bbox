@@ -8,6 +8,10 @@ class TestBBox(TestCase):
     def setUp(self, seed=0) -> None:
         np.random.seed(seed)
 
+    @staticmethod
+    def _generate_random_array() -> np.ndarray:
+        return np.random.rand(2, 3, 4)
+
     def test_init_arr_pos(self) -> None:
         valid_arrays = [(0, 0, 0, 0), [[1, 2, 3, 4]], np.random.rand(2, 3, 4)]
         for arr in valid_arrays:
