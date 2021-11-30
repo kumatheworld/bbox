@@ -25,38 +25,38 @@ class TestBBox(TestCase):
                 BBox(arr)
 
     def test_init_mode_pos(self) -> None:
-        arr = np.random.rand(2, 3, 4)
+        arr = self._generate_random_array()
         valid_modes = ("xyxy", "xywh", "ccwh")
         for mode in valid_modes:
             bbox = BBox(arr, mode=mode)
             self.assertIsInstance(bbox, BBox)
 
     def test_init_mode_neg(self) -> None:
-        arr = np.random.rand(2, 3, 4)
+        arr = self._generate_random_array()
         invalid_modes = ("xxyy", "xyhw", "cxcywh")
         for mode in invalid_modes:
             with self.assertRaises(ValueError):
                 BBox(arr, mode=mode)
 
     def test_init_origin(self) -> None:
-        arr = np.random.rand(2, 3, 4)
+        arr = self._generate_random_array()
         origins = (0, 1)
         for origin in origins:
             bbox = BBox(arr, origin=origin)
             self.assertIsInstance(bbox, BBox)
 
     def test_init_copy_false(self) -> None:
-        arr = np.random.rand(2, 3, 4)
+        arr = self._generate_random_array()
         bbox = BBox(arr, copy=False)
         self.assertIs(arr, bbox._xyxy)
 
     def test_init_copy_true(self) -> None:
-        arr = np.random.rand(2, 3, 4)
+        arr = self._generate_random_array()
         bbox = BBox(arr, copy=True)
         self.assertIsNot(arr, bbox._xyxy)
 
     def test_stack_shape_no_axis(self) -> None:
-        arr = np.random.rand(2, 3, 4)
+        arr = self._generate_random_array()
         bboxes = [BBox(a) for a in arr]
         bbox = stack(bboxes)
         self.assertEqual(bbox.shape, arr.shape[:-1])
