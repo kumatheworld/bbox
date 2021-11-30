@@ -51,7 +51,7 @@ class TestBBox(TestCase):
         bbox = BBox(arr, copy=True)
         self.assertIsNot(arr, bbox._xyxy)
 
-    def test_stack_shape(self) -> None:
+    def test_stack_shape_no_axis(self) -> None:
         arr = np.random.rand(2, 3, 4)
         bboxes = [BBox(a) for a in arr]
         bbox = stack(bboxes)
