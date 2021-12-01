@@ -44,7 +44,7 @@ class BBox:
             self._xyxy += self.origin - origin
 
     @property
-    def shape(self):
+    def shape(self) -> tuple[int, ...]:
         return self._xyxy.shape[:-1]
 
     @property
