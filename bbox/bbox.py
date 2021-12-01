@@ -44,6 +44,10 @@ class BBox:
             self._xyxy += self.origin - origin
 
     @property
+    def ndim(self) -> int:
+        return self._xyxy.ndim - 1
+
+    @property
     def shape(self) -> tuple[int, ...]:
         return self._xyxy.shape[:-1]
 
