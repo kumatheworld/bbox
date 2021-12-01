@@ -63,10 +63,10 @@ class BBox:
     def _y1(self) -> np.ndarray:
         return self._xyxy[..., 3]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"BBox({repr(self._xyxy)})"
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"BBox(x0={self._x0}, y0={self._y0}, x1={self._x1}, y1={self._y1})"
 
 
