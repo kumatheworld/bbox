@@ -74,6 +74,11 @@ class BBox:
         return f"BBox(x0={self._x0}, y0={self._y0}, x1={self._x1}, y1={self._y1})"
 
 
+class AxisError(ValueError, IndexError):
+    def __init__(self, axis: int, ndim: int) -> None:
+        super().__init__(f"axis {axis} is out of bounds for BBox of dimension {ndim}")
+
+
 def stack(bboxes: Sequence[BBox], axis: int = 0) -> BBox:
     if axis < 0:
         axis -= 1
