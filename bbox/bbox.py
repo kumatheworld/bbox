@@ -80,6 +80,9 @@ class AxisError(ValueError, IndexError):
 
 
 def stack(bboxes: Sequence[BBox], axis: int = 0) -> BBox:
+    ndim = bboxes[0].ndim
+    if axis not in range(-ndim - 1, ndim + 1):
+        raise AxisError(axis, ndim)
     if axis < 0:
         axis -= 1
     arr = np.stack([bbox._xyxy for bbox in bboxes], axis)
