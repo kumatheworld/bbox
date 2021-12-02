@@ -74,7 +74,7 @@ class BBox:
         return f"BBox(x0={self._x0}, y0={self._y0}, x1={self._x1}, y1={self._y1})"
 
 
-def stack(bboxes: Sequence[BBox], axis=0) -> BBox:
+def stack(bboxes: Sequence[BBox], axis: int = 0) -> BBox:
     if axis < 0:
         axis -= 1
     arr = np.stack([bbox._xyxy for bbox in bboxes], axis)
