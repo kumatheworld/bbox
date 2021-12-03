@@ -1,3 +1,4 @@
+from typing import Union
 from unittest import TestCase, main
 
 import numpy as np
@@ -62,6 +63,14 @@ class TestBBox(TestCase):
         bbox = stack(bboxes)
         assert_array_equal(bbox._xyxy, arr)
 
+    def test_stack_pos_pos_axis(self) -> None:
+        arr = self._generate_random_array()
+        idx: list[Union[slice, int]] = []
+        for axis in range(arr.ndim - 1):
+            bboxes = [BBox(arr[tuple(idx + [i])]) for i in range(arr.shape[axis])]
+            bbox = stack(bboxes, axis)
+            assert_array_equal(bbox._xyxy, arr)
+            idx.append(slice(None))
 
 if __name__ == "__main__":
     main()
