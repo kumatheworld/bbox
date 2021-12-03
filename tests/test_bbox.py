@@ -72,5 +72,14 @@ class TestBBox(TestCase):
             assert_array_equal(bbox._xyxy, arr)
             idx.append(slice(None))
 
+    def test_stack_pos_neg_axis(self) -> None:
+        arr = self._generate_random_array()
+        idx: list[Union[slice, int]] = []
+        for axis in range(1 - arr.ndim, 0):
+            bboxes = [BBox(arr[tuple(idx + [i])]) for i in range(arr.shape[axis - 1])]
+            bbox = stack(bboxes, axis)
+            assert_array_equal(bbox._xyxy, arr)
+            idx.append(slice(None))
+
 if __name__ == "__main__":
     main()
