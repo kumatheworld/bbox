@@ -2,7 +2,7 @@ from typing import Union
 from unittest import TestCase, main
 
 import numpy as np
-from bbox.bbox import BBox, stack
+from bbox.bbox import AxisError, BBox, stack
 from numpy.testing import assert_array_equal
 
 
@@ -80,6 +80,15 @@ class TestBBox(TestCase):
             bbox = stack(bboxes, axis)
             assert_array_equal(bbox._xyxy, arr)
             idx.append(slice(None))
+
+    def test_stack_neg(self) -> None:
+        arr = self._generate_random_array()
+        bboxes = [BBox(a) for a in arr]
+        axis = arr.ndim - 1
+        for axis in range(arr.ndim - 1, arr.ndim + 1):
+            with self.assertRaises(AxisError):
+                stack(bboxes, axis)
+
 
 if __name__ == "__main__":
     main()
