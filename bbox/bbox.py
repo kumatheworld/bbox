@@ -73,6 +73,9 @@ class BBox:
     def __str__(self) -> str:
         return f"BBox(x0={self._x0}, y0={self._y0}, x1={self._x1}, y1={self._y1})"
 
+    def __copy__(self) -> "BBox":
+        return BBox(self._xyxy, copy=True)
+
 
 class AxisError(ValueError, IndexError):
     def __init__(self, axis: int, ndim: int) -> None:
