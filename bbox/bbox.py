@@ -76,6 +76,9 @@ class BBox:
     def __copy__(self) -> "BBox":
         return BBox(self._xyxy, copy=True)
 
+    def __len__(self) -> int:
+        return self.shape[0]
+
 
 class AxisError(ValueError, IndexError):
     def __init__(self, axis: int, ndim: int) -> None:
