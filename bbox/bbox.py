@@ -82,6 +82,9 @@ class BBox:
     def __getitem__(self, key) -> "BBox":
         return BBox(self._xyxy[key])
 
+    def __setitem__(self, key, value) -> None:
+        self._xyxy[key] = value
+
 
 class AxisError(ValueError, IndexError):
     def __init__(self, axis: int, ndim: int) -> None:
