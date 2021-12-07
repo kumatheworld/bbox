@@ -57,6 +57,12 @@ class TestBBox(TestCase):
         bbox = BBox(arr, copy=True)
         self.assertIsNot(arr, bbox._xyxy)
 
+    def test_getitem_setitem(self) -> None:
+        arr = self._generate_random_array()
+        bbox = BBox(arr, copy=True)
+        bbox[:1] = bbox[:1]._xyxy
+        assert_array_equal(bbox._xyxy, arr)
+
     def test_stack_no_axis(self) -> None:
         arr = self._generate_random_array()
         bboxes = [BBox(a) for a in arr]
