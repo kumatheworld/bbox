@@ -67,6 +67,10 @@ class BBox:
     def _y1(self) -> np.ndarray:
         return self._xyxy[..., 3]
 
+    @property
+    def _center(self):
+        return (self._xyxy[..., :2] + self._xyxy[..., 2:]) / 2
+
     def __repr__(self) -> str:
         return f"BBox({repr(self._xyxy)})"
 
