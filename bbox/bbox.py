@@ -80,6 +80,11 @@ class BBox:
     def _size(self):
         return self._xyxy[..., 2:] - self._xyxy[..., :2] + 1
 
+    @property
+    def size(self):
+        wh = self._size
+        return wh[..., 0], wh[..., 1]
+
     def __repr__(self) -> str:
         return f"BBox({repr(self._xyxy)})"
 
