@@ -76,6 +76,10 @@ class BBox:
         cxcy = self._center
         return cxcy[..., 0], cxcy[..., 1]
 
+    @property
+    def _size(self):
+        return self._xyxy[..., 2:] - self._xyxy[..., :2] + 1
+
     def __repr__(self) -> str:
         return f"BBox({repr(self._xyxy)})"
 
