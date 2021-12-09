@@ -57,6 +57,12 @@ class TestBBox(TestCase):
         bbox = BBox(arr, copy=True)
         self.assertIsNot(arr, bbox._xyxy)
 
+    def test_coordinates(self) -> None:
+        arr = self._generate_random_array()
+        bbox = BBox(arr)
+        arr2 = np.stack((bbox._x0, bbox._y0, bbox._x1, bbox._y1), -1)
+        assert_array_equal(arr, arr2)
+
     def test_getitem_setitem(self) -> None:
         arr = self._generate_random_array()
         bbox = BBox(arr, copy=True)
