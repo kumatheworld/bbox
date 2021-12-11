@@ -71,6 +71,15 @@ class TestBBox(TestCase):
         bbox2 = BBox(arr2, mode="xywh")
         assert_allclose(arr, bbox2._xyxy)
 
+    def test_center_size_ccwh(self) -> None:
+        arr = self._generate_random_array()
+        bbox = BBox(arr)
+        cx, cy = bbox.center
+        w, h = bbox.size
+        arr2 = np.stack((cx, cy, w, h), -1)
+        bbox2 = BBox(arr2, mode="ccwh")
+        assert_allclose(arr, bbox2._xyxy)
+
     def test_getitem_setitem(self) -> None:
         arr = self._generate_random_array()
         bbox = BBox(arr, copy=True)
