@@ -103,6 +103,10 @@ class BBox:
     def __setitem__(self, key, value) -> None:
         self._xyxy[key] = value
 
+    def is_valid(self):
+        w, h = self.size
+        return (w > 0) & (h > 0)
+
 
 class AxisError(ValueError, IndexError):
     def __init__(self, axis: int, ndim: int) -> None:
