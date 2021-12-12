@@ -85,6 +85,11 @@ class BBox:
         wh = self._size
         return wh[..., 0], wh[..., 1]
 
+    @property
+    def area(self):
+        width, height = self.size
+        return width * height * self.is_valid()
+
     def __repr__(self) -> str:
         return f"BBox({repr(self._xyxy)})"
 
