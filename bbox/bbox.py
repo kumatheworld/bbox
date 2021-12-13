@@ -68,25 +68,25 @@ class BBox:
         return self._xyxy[..., 3]
 
     @property
-    def _center(self):
+    def _center(self) -> np.ndarray:
         return (self._xyxy[..., :2] + self._xyxy[..., 2:]) / 2
 
     @property
-    def center(self):
+    def center(self) -> tuple[np.ndarray, np.ndarray]:
         cxcy = self._center
         return cxcy[..., 0], cxcy[..., 1]
 
     @property
-    def _size(self):
+    def _size(self) -> np.ndarray:
         return self._xyxy[..., 2:] - self._xyxy[..., :2] + 1
 
     @property
-    def size(self):
+    def size(self) -> tuple[np.ndarray, np.ndarray]:
         wh = self._size
         return wh[..., 0], wh[..., 1]
 
     @property
-    def area(self):
+    def area(self) -> np.ndarray:
         width, height = self.size
         return width * height * self.is_valid()
 
@@ -108,7 +108,7 @@ class BBox:
     def __setitem__(self, key, value) -> None:
         self._xyxy[key] = value
 
-    def is_valid(self):
+    def is_valid(self) -> np.ndarray:
         w, h = self.size
         return (w > 0) & (h > 0)
 
