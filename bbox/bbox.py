@@ -108,6 +108,11 @@ class BBox:
     def __setitem__(self, key, value) -> None:
         self._xyxy[key] = value
 
+    def __and__(self, other: "BBox") -> "BBox":
+        lt = np.maximum(self._xyxy[..., :2], other._xyxy[..., :2])
+        rb = np.minimum(self._xyxy[..., 2:], other._xyxy[..., 2:])
+        return BBox(np.concatenate((lt, rb), -1))
+
     def is_valid(self) -> np.ndarray:
         w, h = self.size
         return (w > 0) & (h > 0)
