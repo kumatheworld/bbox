@@ -113,6 +113,9 @@ class BBox:
         rb = np.minimum(self._xyxy[..., 2:], other._xyxy[..., 2:])
         return BBox(np.concatenate((lt, rb), -1))
 
+    def __round__(self) -> "BBox":
+        return BBox(self._xyxy.round())
+
     def is_valid(self) -> np.ndarray:
         w, h = self.size
         return (w > 0) & (h > 0)
