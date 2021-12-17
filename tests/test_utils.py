@@ -12,6 +12,11 @@ class TestPair(TestCase):
         y = [0, 0]
         self.assertEqualAsPair(x, y)
 
+    def test_pair_tuple(self) -> None:
+        x = 0
+        y = (0, 0)
+        self.assertEqualAsPair(x, y)
+
 
 if __name__ == "__main__":
     main()
