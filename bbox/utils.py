@@ -1,4 +1,7 @@
-def pair(x):
+from typing import Any, Sequence, Union
+
+
+def pair(x: Union[Any, Sequence[Any]]) -> tuple[Any, ...]:
     try:
         if len(x) == 2:
             return tuple(x)
