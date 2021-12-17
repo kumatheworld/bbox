@@ -1,5 +1,6 @@
 from unittest import TestCase, main
 
+import numpy as np
 from bbox.utils import pair
 
 
@@ -15,6 +16,11 @@ class TestPair(TestCase):
     def test_pair_tuple(self) -> None:
         x = 0
         y = (0, 0)
+        self.assertEqualAsPair(x, y)
+
+    def test_pair_ndarray(self) -> None:
+        x = 0
+        y = np.array([0, 0])
         self.assertEqualAsPair(x, y)
 
 
