@@ -5,6 +5,8 @@ from typing import Optional, Sequence, Union
 import numpy as np
 from numpy.typing import ArrayLike
 
+from bbox.utils import pair
+
 
 class BBox:
     origin = 1
@@ -115,6 +117,12 @@ class BBox:
 
     def __round__(self) -> "BBox":
         return BBox(self._xyxy.round())
+
+    def __iadd__(self, point):
+        dx, dy = pair(point)
+        self._xyxy[..., 0::2] += dx
+        self._xyxy[..., 1::2] += dy
+        return self
 
     def is_valid(self) -> np.ndarray:
         w, h = self.size
