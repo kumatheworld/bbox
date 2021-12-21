@@ -1,3 +1,4 @@
+from copy import copy
 from pathlib import Path
 from re import sub
 from typing import Optional, Sequence, Union
@@ -123,6 +124,11 @@ class BBox:
         self._xyxy[..., 0::2] += dx
         self._xyxy[..., 1::2] += dy
         return self
+
+    def __add__(self, point):
+        bb = copy(self)
+        bb += point
+        return bb
 
     def __isub__(self, point):
         dx, dy = pair(point)
