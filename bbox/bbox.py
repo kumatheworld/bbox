@@ -136,6 +136,11 @@ class BBox:
         self._xyxy[..., 1::2] -= dy
         return self
 
+    def __sub__(self, point):
+        bb = copy(self)
+        bb -= point
+        return bb
+
     def is_valid(self) -> np.ndarray:
         w, h = self.size
         return (w > 0) & (h > 0)
