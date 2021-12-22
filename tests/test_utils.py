@@ -23,6 +23,11 @@ class TestPair(TestCase):
         y = np.array([0, 0])
         self.assertEqualAsPair(x, y)
 
+    def test_pair_set(self) -> None:
+        y = {0}
+        with self.assertRaises(ValueError):
+            pair(y)
+
 
 if __name__ == "__main__":
     main()
