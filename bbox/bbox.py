@@ -6,7 +6,7 @@ from typing import Optional, Sequence, Union
 import numpy as np
 from numpy.typing import ArrayLike
 
-from bbox.utils import pair
+from bbox.utils import Pairable, pair
 
 
 class BBox:
@@ -119,24 +119,24 @@ class BBox:
     def __round__(self) -> "BBox":
         return BBox(self._xyxy.round())
 
-    def __iadd__(self, point):
+    def __iadd__(self, point: Pairable[float]) -> "BBox":
         dx, dy = pair(point)
         self._xyxy[..., 0::2] += dx
         self._xyxy[..., 1::2] += dy
         return self
 
-    def __add__(self, point):
+    def __add__(self, point: Pairable[float]) -> "BBox":
         bb = copy(self)
         bb += point
         return bb
 
-    def __isub__(self, point):
+    def __isub__(self, point: Pairable[float]) -> "BBox":
         dx, dy = pair(point)
         self._xyxy[..., 0::2] -= dx
         self._xyxy[..., 1::2] -= dy
         return self
 
-    def __sub__(self, point):
+    def __sub__(self, point: Pairable[float]) -> "BBox":
         bb = copy(self)
         bb -= point
         return bb
