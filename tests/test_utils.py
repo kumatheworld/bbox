@@ -33,6 +33,11 @@ class TestPair(TestCase):
         with self.assertRaises(ValueError):
             pair(y)
 
+    def test_pair_tripleton_range(self) -> None:
+        y = range(3)
+        with self.assertRaises(ValueError):
+            pair(y)
+
 
 if __name__ == "__main__":
     main()
