@@ -86,6 +86,12 @@ class TestBBox(TestCase):
         bbox[:1] = bbox[:1]._xyxy
         assert_array_equal(bbox._xyxy, arr)
 
+    def test_add_sub(self) -> None:
+        arr = self._generate_random_array()
+        bbox = BBox(arr)
+        bbox2 = bbox + 1 - (1, 1)
+        assert_allclose(bbox._xyxy, bbox2._xyxy)
+
     def test_stack_no_axis(self) -> None:
         arr = self._generate_random_array()
         bboxes = [BBox(a) for a in arr]
