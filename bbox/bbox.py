@@ -10,13 +10,13 @@ from bbox.utils import Pairable, pair
 
 
 class BBox:
-    origin = 1
+    base = 1
 
     def __init__(
         self,
         arr: ArrayLike,
         mode: str = "xyxy",
-        origin: float = 1,
+        base: float = 1,
         copy: bool = False,
     ) -> None:
         """mode = 'xyxy' | 'xywh' | 'ccwh'"""
@@ -43,8 +43,8 @@ class BBox:
             arr[..., 2:] += arr[..., :2] - 1
 
         self._xyxy = arr
-        if origin != self.origin:
-            self._xyxy += self.origin - origin
+        if base != self.base:
+            self._xyxy += self.base - base
 
     @property
     def ndim(self) -> int:
@@ -176,7 +176,7 @@ def stack(bboxes: Sequence[BBox], axis: int = 0) -> BBox:
 def loadtxt(
     fname: Union[str, Path],
     mode: str = "xywh",
-    origin: float = 1,
+    base: float = 1,
     dtype: type = float,
     delimiter: Optional[str] = ",",
     usecols: Optional[Union[int, Sequence[int]]] = None,
@@ -194,4 +194,4 @@ def loadtxt(
             arr_str = [sub(",|\t", " ", line) for line in f]
         arr = np.loadtxt(arr_str, dtype, usecols=usecols, ndmin=ndmin)
     arr = arr[start:stop:step]
-    return BBox(arr, mode, origin)
+    return BBox(arr, mode, base)

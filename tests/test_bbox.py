@@ -40,11 +40,11 @@ class TestBBox(TestCase):
             with self.assertRaises(ValueError):
                 BBox(arr, mode=mode)
 
-    def test_init_origin(self) -> None:
+    def test_init_base(self) -> None:
         arr = self._generate_random_array()
-        origins = (0, 1)
-        for origin in origins:
-            bbox = BBox(arr, origin=origin)
+        bases = (0, 1)
+        for base in bases:
+            bbox = BBox(arr, base=base)
             self.assertIsInstance(bbox, BBox)
 
     def test_init_copy_false(self) -> None:
