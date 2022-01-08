@@ -145,14 +145,17 @@ class BBox:
         w, h = self.size
         return (w > 0) & (h > 0)
 
-    def scale(self, factor: Pairable[float], fixed_point: Pairable[float]) -> "BBox":
+    def scale(
+        self, factor: Pairable[float], fixed_point: Pairable[float], inplace=True
+    ) -> "BBox":
         kx, ky = pair(factor)
         fpx, fpy = pair(fixed_point)
-        self._xyxy[..., 0] = (self._xyxy[..., 0] - 0.5 - fpx) * kx + fpx + 0.5
-        self._xyxy[..., 1] = (self._xyxy[..., 1] - 0.5 - fpy) * ky + fpy + 0.5
-        self._xyxy[..., 2] = (self._xyxy[..., 2] + 0.5 - fpx) * kx + fpx - 0.5
-        self._xyxy[..., 3] = (self._xyxy[..., 3] + 0.5 - fpy) * ky + fpy - 0.5
-        return self
+        bb = self if inplace else copy(self)
+        bb._xyxy[..., 0] = (bb._xyxy[..., 0] - 0.5 - fpx) * kx + fpx + 0.5
+        bb._xyxy[..., 1] = (bb._xyxy[..., 1] - 0.5 - fpy) * ky + fpy + 0.5
+        bb._xyxy[..., 2] = (bb._xyxy[..., 2] + 0.5 - fpx) * kx + fpx - 0.5
+        bb._xyxy[..., 3] = (bb._xyxy[..., 3] + 0.5 - fpy) * ky + fpy - 0.5
+        return bb
 
 
 class AxisError(ValueError, IndexError):
