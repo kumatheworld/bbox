@@ -89,7 +89,8 @@ class TestBBox(TestCase):
     def test_add_sub(self) -> None:
         arr = self._generate_random_array()
         bbox = BBox(arr)
-        bbox2 = bbox + 1 - (1, 1)
+        a = np.random.rand()
+        bbox2 = bbox + a - (a, a)
         assert_allclose(bbox._xyxy, bbox2._xyxy)
 
     def test_stack_no_axis(self) -> None:
