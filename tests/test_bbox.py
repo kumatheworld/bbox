@@ -86,6 +86,14 @@ class TestBBox(TestCase):
         bbox[:1] = bbox[:1]._xyxy
         assert_array_equal(bbox._xyxy, arr)
 
+    def test_add_associative(self) -> None:
+        arr = self._generate_random_array()
+        bbox = BBox(arr)
+        a, b = np.random.rand(2)
+        bbox2 = bbox + a + b
+        bbox3 = bbox + (a + b)
+        assert_allclose(bbox2._xyxy, bbox3._xyxy)
+
     def test_add_sub(self) -> None:
         arr = self._generate_random_array()
         bbox = BBox(arr)
