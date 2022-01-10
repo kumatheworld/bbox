@@ -146,6 +146,11 @@ class BBox:
         self.scale(factor, origin)
         return self
 
+    def __mul__(self, factor: Pairable[float]) -> "BBox":
+        bb = copy(self)
+        bb *= factor
+        return bb
+
     def is_valid(self) -> np.ndarray:
         w, h = self.size
         return (w > 0) & (h > 0)
