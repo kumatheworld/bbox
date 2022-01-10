@@ -101,6 +101,14 @@ class TestBBox(TestCase):
         bbox2 = bbox + a - (a, a)
         assert_allclose(bbox._xyxy, bbox2._xyxy)
 
+    def test_mul_associative(self) -> None:
+        arr = self._generate_random_array()
+        bbox = BBox(arr)
+        a, b = np.random.rand(2)
+        bbox2 = bbox * a * b
+        bbox3 = bbox * (a * b)
+        assert_allclose(bbox2._xyxy, bbox3._xyxy)
+
     def test_stack_no_axis(self) -> None:
         arr = self._generate_random_array()
         bboxes = [BBox(a) for a in arr]
