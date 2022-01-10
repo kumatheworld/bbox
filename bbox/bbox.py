@@ -141,6 +141,11 @@ class BBox:
         bb -= point
         return bb
 
+    def __imul__(self, factor: Pairable[float]) -> "BBox":
+        origin = self.base - 0.5
+        self.scale(factor, origin)
+        return self
+
     def is_valid(self) -> np.ndarray:
         w, h = self.size
         return (w > 0) & (h > 0)
