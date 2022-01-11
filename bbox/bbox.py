@@ -151,6 +151,12 @@ class BBox:
         bb *= factor
         return bb
 
+    def __itruediv__(self, factor: Pairable[float]) -> "BBox":
+        factor = pair(factor)
+        factor = (1 / factor[0], 1 / factor[1])
+        self *= factor
+        return self
+
     def is_valid(self) -> np.ndarray:
         w, h = self.size
         return (w > 0) & (h > 0)
