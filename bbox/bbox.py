@@ -178,6 +178,10 @@ class BBox:
         bb._xyxy[..., 3] = (bb._xyxy[..., 3] + 0.5 - fpy) * ky + fpy - 0.5
         return bb
 
+    def reshape(self, *shape: int) -> "BBox":
+        arr = self._xyxy.reshape(*shape, 4)
+        return BBox(arr)
+
 
 class AxisError(ValueError, IndexError):
     def __init__(self, axis: int, ndim: int) -> None:
