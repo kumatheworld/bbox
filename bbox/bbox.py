@@ -182,6 +182,24 @@ class BBox:
         arr = self._xyxy.reshape(*shape, 4)
         return BBox(arr)
 
+    def is_inside(self, im_size):
+        o = self.base
+        w, h = pair(im_size)
+        x0 = self._x0
+        y0 = self._y0
+        x1 = self._x1
+        y1 = self._y1
+        return (
+            (o <= x0)
+            & (x0 <= o + w - 1)
+            & (o <= y0)
+            & (y0 <= o + h - 1)
+            & (o <= x1)
+            & (x1 <= o + w - 1)
+            & (o <= y1)
+            & (y1 <= o + h - 1)
+        )
+
 
 class AxisError(ValueError, IndexError):
     def __init__(self, axis: int, ndim: int) -> None:
