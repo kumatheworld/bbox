@@ -31,10 +31,7 @@ class BBox:
             arr = np.array(arr)
 
         if arr.shape[-1] != 4:
-            raise ValueError(
-                "The last dimension of the array must be of size 4, "
-                "but the given array shape is " + str(arr.shape)
-            )
+            raise ValueError("expected array of shape (*, 4) but got " + str(arr.shape))
 
         if mode == "xywh":
             arr[..., 2:] += arr[..., :2] - 1
