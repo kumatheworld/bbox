@@ -197,6 +197,14 @@ class BBox:
             & (y1 <= o + h - 1)
         )
 
+    def rectify(self, im_size):
+        o = self.base
+        w, h = pair(im_size)
+        xx = self._xyxy[..., 0::2].clamp(min=o, max=o + w - 1)
+        yy = self._xyxy[..., 1::2].clamp(min=o, max=o + h - 1)
+        arr = np.stack((xx[..., 0], yy[..., 0], xx[..., 1], yy[..., 1]), -1)
+        return BBox(arr)
+
 
 class AxisError(ValueError, IndexError):
     def __init__(self, axis: int, ndim: int) -> None:
