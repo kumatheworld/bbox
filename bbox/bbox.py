@@ -179,7 +179,7 @@ class BBox:
         arr = self._xyxy.reshape(*shape, 4)
         return BBox(arr)
 
-    def is_inside(self, im_size):
+    def is_inside(self, im_size: Pairable) -> np.ndarray:
         o = self.base
         w, h = pair(im_size)
         x0 = self._x0
@@ -197,7 +197,7 @@ class BBox:
             & (y1 <= o + h - 1)
         )
 
-    def rectify(self, im_size):
+    def rectify(self, im_size: Pairable) -> "BBox":
         o = self.base
         w, h = pair(im_size)
         xx = self._xyxy[..., 0::2].clip(o, o + w - 1)
