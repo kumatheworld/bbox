@@ -116,6 +116,13 @@ class TestBBox(TestCase):
         bbox2 = bbox * a / (a, a)
         assert_allclose(bbox._xyxy, bbox2._xyxy)
 
+    def test_is_inside_rectify(self) -> None:
+        arr = self._generate_random_array() + 1
+        size = 1.5
+        bbox = BBox(arr).rectify(size)
+        print(BBox(arr), bbox)
+        assert_array_equal(bbox.is_inside(size), np.ones(bbox.shape, bool))
+
     def test_stack_no_axis(self) -> None:
         arr = self._generate_random_array()
         bboxes = [BBox(a) for a in arr]
