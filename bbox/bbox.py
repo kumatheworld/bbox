@@ -102,10 +102,10 @@ class BBox:
     def __len__(self) -> int:
         return self.shape[0]
 
-    def __getitem__(self, key) -> "BBox":
+    def __getitem__(self, key: Union[int, slice]) -> "BBox":
         return BBox(self._xyxy[key])
 
-    def __setitem__(self, key, value) -> None:
+    def __setitem__(self, key: Union[int, slice], value: np.ndarray) -> None:
         self._xyxy[key] = value
 
     def __and__(self, other: "BBox") -> "BBox":
