@@ -206,6 +206,10 @@ class BBox:
         arr = np.stack((xx[..., 0], yy[..., 0], xx[..., 1], yy[..., 1]), -1)
         return BBox(arr)
 
+    def IoU(self, other: "BBox") -> float:
+        its_area = (self & other).area
+        return its_area / (self.area + other.area - its_area)
+
 
 class AxisError(ValueError, IndexError):
     def __init__(self, axis: int, ndim: int) -> None:
