@@ -150,9 +150,8 @@ class BBox:
         return bb
 
     def __itruediv__(self, factor: Pairable[float]) -> "BBox":
-        factor = pair(factor)
-        factor = (1 / factor[0], 1 / factor[1])
-        self *= factor
+        kx, ky = pair(factor)
+        self *= (1 / kx, 1 / ky)
         return self
 
     def __truediv__(self, factor: Pairable[float]) -> "BBox":
