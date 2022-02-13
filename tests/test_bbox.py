@@ -1,9 +1,11 @@
+from tempfile import TemporaryFile
 from typing import Union
 from unittest import TestCase, main
 
 import numpy as np
-from bbox.bbox import AxisError, BBox, stack
 from numpy.testing import assert_allclose, assert_array_equal
+
+from bbox.bbox import AxisError, BBox, loadtxt, stack
 
 
 class TestBBox(TestCase):
@@ -154,6 +156,14 @@ class TestBBox(TestCase):
         for axis in range(arr.ndim - 1, arr.ndim + 1):
             with self.assertRaises(AxisError):
                 stack(bboxes, axis)
+
+    def test_loadtxt(self) -> None:
+        content = b"1,2,3,4"
+        with TemporaryFile() as fp:
+            fp.write(content)
+            fp.seek(0)
+            bbox = loadtxt(fp)
+            self.assertEqual(bbox.shape, (1,))
 
 
 if __name__ == "__main__":
