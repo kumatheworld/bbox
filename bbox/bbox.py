@@ -1,6 +1,5 @@
 from copy import copy
 from pathlib import Path
-from re import sub
 from typing import Optional, Sequence, Union
 
 import numpy as np
@@ -237,13 +236,6 @@ def loadtxt(
     stop: Optional[int] = None,
     step: Optional[int] = None,
 ):
-    if delimiter:
-        arr = np.loadtxt(
-            fname, dtype, delimiter=delimiter, usecols=usecols, ndmin=ndmin
-        )
-    else:
-        with open(fname) as f:
-            arr_str = [sub(",|\t", " ", line) for line in f]
-        arr = np.loadtxt(arr_str, dtype, usecols=usecols, ndmin=ndmin)
+    arr = np.loadtxt(fname, dtype, delimiter=delimiter, usecols=usecols, ndmin=ndmin)
     arr = arr[start:stop:step]
     return BBox(arr, mode, base)
