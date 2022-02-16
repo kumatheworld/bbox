@@ -165,6 +165,14 @@ class TestBBox(TestCase):
             bbox = loadtxt(fp)
             self.assertEqual(bbox.shape, (1,))
 
+    def test_loadtxt_delimiter(self) -> None:
+        content = b"1\t2\t3\t4\n5\t6\t7\t8"
+        with TemporaryFile() as fp:
+            fp.write(content)
+            fp.seek(0)
+            bbox = loadtxt(fp, delimiter="\t")
+            self.assertEqual(bbox.shape, (2,))
+
 
 if __name__ == "__main__":
     main()
