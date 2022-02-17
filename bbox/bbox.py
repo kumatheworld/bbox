@@ -101,7 +101,7 @@ class BBox:
     def __len__(self) -> int:
         return self.shape[0]
 
-    # TODO: accept negative indices and tuples of ellises
+    # TODO: accept negative indices and tuples of ellipses
     def __getitem__(self, key: Union[int, slice]) -> "BBox":
         return BBox(self._xyxy[key])
 
