@@ -1,6 +1,6 @@
 from copy import copy
 from pathlib import Path
-from typing import Optional, Sequence, Union
+from typing import Optional, Sequence, Union, Literal
 
 import numpy as np
 from numpy.typing import ArrayLike
@@ -14,12 +14,10 @@ class BBox:
     def __init__(
         self,
         arr: ArrayLike,
-        mode: str = "xyxy",
+        mode: Literal["xyxy", "xywh", "ccwh"] = "xyxy",
         base: float = 1,
         copy: bool = False,
     ) -> None:
-        """mode = 'xyxy' | 'xywh' | 'ccwh'"""
-
         if mode not in ("xyxy", "xywh", "ccwh"):
             raise ValueError("mode must be 'xyxy', 'xywh', or 'ccwh'")
 
@@ -226,7 +224,7 @@ def stack(bboxes: Sequence[BBox], axis: int = 0) -> BBox:
 
 def loadtxt(
     fname: Union[str, Path],
-    mode: str = "xywh",
+    mode: Literal["xyxy", "xywh", "ccwh"] = "xywh",
     base: float = 1,
     dtype: type = float,
     delimiter: Optional[str] = ",",
