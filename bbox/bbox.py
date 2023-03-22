@@ -1,6 +1,6 @@
 from copy import copy
 from pathlib import Path
-from typing import Optional, Sequence, Union, Literal
+from typing import Literal, Optional, Sequence, Union
 
 import numpy as np
 from numpy.typing import ArrayLike
@@ -9,13 +9,11 @@ from bbox.utils import Pairable, pair
 
 
 class BBox:
-    base = 1
-
     def __init__(
         self,
         arr: ArrayLike,
         mode: Literal["xyxy", "xywh", "ccwh"] = "xyxy",
-        base: float = 1,
+        base: float = 0,
         copy: bool = False,
     ) -> None:
         if mode not in ("xyxy", "xywh", "ccwh"):
@@ -36,9 +34,8 @@ class BBox:
             arr[..., :2] -= (arr[..., 2:] - 1) / 2
             arr[..., 2:] += arr[..., :2] - 1
 
+        arr -= base
         self._xyxy = arr
-        if base != self.base:
-            self._xyxy += self.base - base
 
     @property
     def ndim(self) -> int:
@@ -137,8 +134,7 @@ class BBox:
         return bb
 
     def __imul__(self, factor: Pairable[float]) -> "BBox":
-        origin = self.base - 0.5
-        self.scale(factor, origin)
+        self.scale(factor, -0.5)
         return self
 
     def __mul__(self, factor: Pairable[float]) -> "BBox":
@@ -177,28 +173,26 @@ class BBox:
         return BBox(arr)
 
     def is_inside(self, im_size: Pairable) -> np.ndarray:
-        o = self.base
         w, h = pair(im_size)
         x0 = self._x0
         y0 = self._y0
         x1 = self._x1
         y1 = self._y1
         return (
-            (o <= x0)
-            & (x0 <= o + w - 1)
-            & (o <= y0)
-            & (y0 <= o + h - 1)
-            & (o <= x1)
-            & (x1 <= o + w - 1)
-            & (o <= y1)
-            & (y1 <= o + h - 1)
+            (0 <= x0)
+            & (x0 <= w - 1)
+            & (0 <= y0)
+            & (y0 <= h - 1)
+            & (0 <= x1)
+            & (x1 <= w - 1)
+            & (0 <= y1)
+            & (y1 <= h - 1)
         )
 
     def rectify(self, im_size: Pairable) -> "BBox":
-        o = self.base
         w, h = pair(im_size)
-        xx = self._xyxy[..., 0::2].clip(o, o + w - 1)
-        yy = self._xyxy[..., 1::2].clip(o, o + h - 1)
+        xx = self._xyxy[..., 0::2].clip(0, w - 1)
+        yy = self._xyxy[..., 1::2].clip(0, h - 1)
         arr = np.stack((xx[..., 0], yy[..., 0], xx[..., 1], yy[..., 1]), -1)
         return BBox(arr)
 
