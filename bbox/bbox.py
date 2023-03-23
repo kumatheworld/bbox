@@ -1,5 +1,6 @@
+from collections.abc import Iterable
 from copy import copy
-from pathlib import Path
+from os import PathLike
 from typing import Literal, Optional, Sequence, Union
 
 import numpy as np
@@ -217,13 +218,13 @@ def stack(bboxes: Sequence[BBox], axis: int = 0) -> BBox:
 
 
 def loadtxt(
-    fname: Union[str, Path],
+    fname: Union[str, PathLike, Iterable[str], Iterable[bytes]],
     mode: Literal["xyxy", "xywh", "ccwh"] = "xywh",
     base: float = 1,
     dtype: type = float,
     delimiter: Optional[str] = ",",
     usecols: Optional[Union[int, Sequence[int]]] = None,
-    ndmin: Optional[int] = 2,
+    ndmin: Literal[0, 1, 2] = 2,
 ):
     arr = np.loadtxt(fname, dtype, delimiter=delimiter, usecols=usecols, ndmin=ndmin)
     return BBox(arr, mode, base)
