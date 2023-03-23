@@ -224,10 +224,6 @@ def loadtxt(
     delimiter: Optional[str] = ",",
     usecols: Optional[Union[int, Sequence[int]]] = None,
     ndmin: Optional[int] = 2,
-    start: Optional[int] = None,
-    stop: Optional[int] = None,
-    step: Optional[int] = None,
 ):
     arr = np.loadtxt(fname, dtype, delimiter=delimiter, usecols=usecols, ndmin=ndmin)
-    arr = arr[start:stop:step]
     return BBox(arr, mode, base)
