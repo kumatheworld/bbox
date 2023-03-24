@@ -223,8 +223,10 @@ def loadtxt(
     base: float = 1,
     dtype: type = float,
     delimiter: Optional[str] = ",",
-    usecols: Optional[Union[int, Sequence[int]]] = None,
     ndmin: Literal[0, 1, 2] = 2,
+    **np_loadtxt_kwargs,
 ):
-    arr = np.loadtxt(fname, dtype, delimiter=delimiter, usecols=usecols, ndmin=ndmin)
+    arr = np.loadtxt(
+        fname, dtype, delimiter=delimiter, ndmin=ndmin, **np_loadtxt_kwargs
+    )
     return BBox(arr, mode, base)
